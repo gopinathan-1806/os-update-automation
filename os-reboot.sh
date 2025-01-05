@@ -26,17 +26,24 @@ check_pod_health() {
         # After the second attempt, if the pod is still not healthy, stop and notify
         if [ $attempt -eq 2 ]; then
             echo "Please manually fix the issue on $host and start the rebooting task."
-            exit 1
+            return 1
         fi
         attempt=$((attempt+1))
     done
 }
 
-# Loop through each host
+# Loop through each host and perform health check
 for host in $hosts; do
     echo "Checking pod health on $host before starting update..."
     check_pod_health $host
+    if [ $? -ne 0 ]; then
+        echo "Health check failed for $host. Skipping update for this host."
+        continue
+    fi
+done
 
+# Proceed with OS update if all pod health checks are successful
+for host in $hosts; do
     echo "Pod health is 'Good' on $host. Proceeding with update."
 
     # SSH to the host and run the OS update
@@ -52,8 +59,13 @@ for host in $hosts; do
 
     # Check pod health again after update
     check_pod_health $host
+    if [ $? -ne 0 ]; then
+        echo "Pod health is not 'Good' after update on $host. Please investigate manually."
+        continue
+    fi
 
     echo "Pod health is stable on $host. Proceeding to next host."
 done
 
 echo "OS updates completed on all hosts."
+
