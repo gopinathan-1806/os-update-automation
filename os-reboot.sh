@@ -9,6 +9,7 @@ hosts=$(jq -r '.swarm[].name, .sc[].name, .as[].name' "$POD_RESOURCE_FILE")
 # Function to check System health
 check_pod_health() {
     local host=$1
+    local attempt=1
     while true; do
         pod_health=$(ssh -i ~/.ssh/chaos-customer-pvt -o ConnectTimeout=3 \
             -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -o LogLevel=ERROR \
@@ -18,9 +19,16 @@ check_pod_health() {
             echo "All pod statuses are 'Good' on $host."
             return 0
         else
-            echo "Pod health not 'Good' on $host. Retrying in 60 seconds..."
+            echo "Pod health not 'Good' on $host. Attempt $attempt of 2. Retrying in 60 seconds..."
             sleep 60
         fi
+        
+        # After the second attempt, if the pod is still not healthy, stop and notify
+        if [ $attempt -eq 2 ]; then
+            echo "Please manually fix the issue on $host and start the rebooting task."
+            exit 1
+        fi
+        attempt=$((attempt+1))
     done
 }
 
@@ -49,4 +57,3 @@ for host in $hosts; do
 done
 
 echo "OS updates completed on all hosts."
-
