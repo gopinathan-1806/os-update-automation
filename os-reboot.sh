@@ -3,7 +3,7 @@
 # Path to the podResource.json file
 POD_RESOURCE_FILE="podResource.json"
 
-# Parse JSON to extract the hostnames (using jq)
+# Parse JSON to extract the hostnames 
 hosts=$(jq -r '.swarm[].name, .sc[].name, .as[].name' "$POD_RESOURCE_FILE")
 
 # Function to check System health and log service-specific issues
@@ -19,8 +19,8 @@ check_pod_health() {
 
         # Checking each line to identify which service is not healthy
         while IFS= read -r line; do
-            service_name=$(echo $line | awk '{print $1}')  # Extract service name (e.g., POD01, sc, proxy, etc.)
-            service_status=$(echo $line | awk '{print $2}')  # Extract service status (e.g., Good, Unhealthy)
+            service_name=$(echo $line | awk '{print $1}')  
+            service_status=$(echo $line | awk '{print $2}')  
             
             # Add the service status to the report in the desired format
             health_report="$health_report$service_name:           $service_status\n"
@@ -31,7 +31,7 @@ check_pod_health() {
 
         # If all services are "Good", return success
         if echo "$pod_health" | grep -q "Good"; then
-            echo "All pod statuses are 'Good' on $host."
+            echo "All service statuses are 'Good' on $host."
             return 0
         else
             echo "Pod health not 'Good' on $host. Retrying in 60 seconds..."
@@ -56,7 +56,7 @@ for host in $hosts; do
         root@$host "apt update && apt upgrade -y"
 
     echo "Waiting for update to complete on $host..."
-    sleep 90  # Simulate update process
+    sleep 90  
 
     echo "OS update completed on $host. Re-checking pod health..."
 
