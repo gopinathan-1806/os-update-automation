@@ -1,0 +1,14 @@
+## Added Worker VMs Private IP for the reference
+{
+  "swarm": [
+    {
+      "name": "10.240.0.6"
+    }
+  ],
+  "sc": [
+    {
+      "name": "10.240.0.7"
+    }
+  ],
+  "as": []
+}
