@@ -125,7 +125,131 @@ Metadata::           Good
 
 All service statuses are 'Good' on 10.240.0.7.
 Pod health is stable on 10.240.0.7. Proceeding to next host.
-OS updates completed on all hosts.```
+OS updates completed on all hosts.
+````
+
+
+
+## Make some POD to fail and testing the code
+
+```
+root@test-vsi:~/reboot# ./latest.sh
+Checking pod health on 10.240.0.6 before starting update...
+Checking pod health on 10.240.0.6 (Attempt 1)...
+POD01::           Good
+sc::           Unhealthy
+proxy::           Good
+as::           Good
+swarm::           Good
+tm::           Good
+fileshipper::           Good
+ping::           Good
+DStore1::           Good
+Metadata::           Good
+Pod health not 'Good' on 10.240.0.6. Retrying in 60 seconds...
+
+Checking pod health on 10.240.0.6 (Attempt 2)...
+POD01::           Good
+sc::           Good
+proxy::           Good
+as::           Good
+swarm::           Good
+tm::           Good
+fileshipper::           Good
+ping::           Good
+DStore1::           Good
+Metadata::           Good
+All service statuses are 'Good' on 10.240.0.6.
+Pod health is 'Good' on 10.240.0.6. Proceeding with update.
+
+Starting OS update on 10.240.0.6...
+
+WARNING: apt does not have a stable CLI interface. Use with caution in scripts.
+
+Get:1 http://mirrors.adn.networklayer.com/ubuntu noble InRelease [256 kB]
+Get:2 http://mirrors.adn.networklayer.com/ubuntu noble-updates InRelease [126 kB]
+Get:3 http://mirrors.adn.networklayer.com/ubuntu noble-backports InRelease [126 kB]
+Get:4 http://mirrors.adn.networklayer.com/ubuntu noble-security InRelease [126 kB]
+Fetched 634 kB in 1s (688 kB/s)
+Reading package lists...
+Building dependency tree...
+Reading state information...
+All packages are up to date.
+
+WARNING: apt does not have a stable CLI interface. Use with caution in scripts.
+
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Calculating upgrade...
+0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
+Waiting for update to complete on 10.240.0.6...
+OS update completed on 10.240.0.6. Re-checking pod health...
+POD01::           Good
+sc::           Good
+proxy::           Good
+as::           Good
+swarm::           Good
+tm::           Good
+fileshipper::           Good
+ping::           Good
+DStore1::           Good
+Metadata::           Good
+
+All service statuses are 'Good' on 10.240.0.6.
+Pod health is stable on 10.240.0.6. Proceeding to next host.
+Checking pod health on 10.240.0.7 before starting update...
+POD01::           Good
+sc::           Good
+proxy::           Good
+as::           Good
+swarm::           Good
+tm::           Good
+fileshipper::           Good
+ping::           Good
+DStore1::           Good
+Metadata::           Good
+
+All service statuses are 'Good' on 10.240.0.7.
+Pod health is 'Good' on 10.240.0.7. Proceeding with update.
+Starting OS update on 10.240.0.7...
+
+WARNING: apt does not have a stable CLI interface. Use with caution in scripts.
+
+Get:1 http://mirrors.adn.networklayer.com/ubuntu noble InRelease [256 kB]
+Get:2 http://mirrors.adn.networklayer.com/ubuntu noble-updates InRelease [126 kB]
+Get:3 http://mirrors.adn.networklayer.com/ubuntu noble-backports InRelease [126 kB]
+Get:4 http://mirrors.adn.networklayer.com/ubuntu noble-security InRelease [126 kB]
+Fetched 634 kB in 1s (662 kB/s)
+Reading package lists...
+Building dependency tree...
+Reading state information...
+All packages are up to date.
+
+WARNING: apt does not have a stable CLI interface. Use with caution in scripts.
+
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Calculating upgrade...
+0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
+Waiting for update to complete on 10.240.0.7...
+OS update completed on 10.240.0.7. Re-checking pod health...
+POD01::           Good
+sc::           Good
+proxy::           Good
+as::           Good
+swarm::           Good
+tm::           Good
+fileshipper::           Good
+ping::           Good
+DStore1::           Good
+Metadata::           Good
+
+All service statuses are 'Good' on 10.240.0.7.
+Pod health is stable on 10.240.0.7. Proceeding to next host.
+OS updates completed on all hosts.
+```
 
 
 
