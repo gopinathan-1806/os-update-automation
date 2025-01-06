@@ -131,6 +131,7 @@ OS updates completed on all hosts.
 
 
 ## Intentionally causing the POD-health to fail for testing the code.
+In this stage, I intentionally set one of the services to an unhealthy state and then ran our automation script. The script waits for 60 seconds and revalidates the status. Since the statuses are good, it proceeds with the upgrade activity.
 
 ```
 root@test-vsi:~/reboot# ./latest.sh
