@@ -130,7 +130,7 @@ OS updates completed on all hosts.
 
 
 
-## Make some POD to fail and testing the code
+## Intentionally causing the POD-health to fail for testing the code.
 
 ```
 root@test-vsi:~/reboot# ./latest.sh
