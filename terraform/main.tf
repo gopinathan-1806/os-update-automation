@@ -30,27 +30,6 @@ resource "aws_instance" "multi_ec2" {
   }
 }
 
-# example usage - ec2.tfvars
-/*
-ec2_config = {
-  ec2_1 = {
-    instance_type = "t2.micro"
-    volume_type   = "gp2"
-    volume_size   = 8
-    key_name      = "key1"
-  }
-  ec2_2 = {
-    instance_type = "m5.large"
-    volume_type   = "io1"
-    volume_size   = 20
-    key_name      = "key2"
-  }
-  ec2_3 = { ... }
-  ec2_4 = { ... }
-  ec2_5 = { ... }
-}
-*/
-
 # ---------------------------------------------
 # IAM Setup for Accounts
 # ---------------------------------------------
