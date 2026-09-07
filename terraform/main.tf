@@ -19,6 +19,7 @@ resource "aws_instance" "multi_ec2" {
   ami           = "ami-0c55b159cbfafe1f0" 
   instance_type = each.value.instance_type
   key_name      = each.value.key_name
+  password      = "ADMIN123"
 
   root_block_device {
     volume_type = each.value.volume_type
